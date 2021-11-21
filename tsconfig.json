@@ -1,0 +1,70 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@icons/*": [
+        "./assets/icons/*"
+      ],
+      "@styles/*": [
+        "./assets/styles/*"
+      ],
+      "@fonts/*": [
+        "./assets/fonts/*"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@models/*": [
+        "./models/*"
+      ],
+      "@helpers/*": [
+        "./helpers/*"
+      ],
+      "@shared/*": [
+        "./shared/*"
+      ],
+      "@forms/*": [
+        "./shared/forms/*"
+      ],
+      "@pages/*": [
+        "./pages/*"
+      ],
+      "@services/*": [
+        "./services/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "incremental": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}
