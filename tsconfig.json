@@ -51,9 +51,15 @@
       "@components/*": [
         "./components/*"
       ],
-      "@database": ["database/db.ts"],
-      "@cors": ["cors-middleware.ts"],
-      "@store/*": ["store/*"]
+      "@database": [
+        "database/db.ts"
+      ],
+      "@cors": [
+        "cors-middleware.ts"
+      ],
+      "@store/*": [
+        "store/*"
+      ]
     },
     "resolveJsonModule": true,
     "isolatedModules": true,
