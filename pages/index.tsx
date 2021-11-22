@@ -1,7 +1,5 @@
 import { FC, useEffect, useState } from 'react'
 
-import Navbar from '@components/Navbar/Navbar'
-
 /**
  * @returns FC
  */
@@ -29,7 +27,6 @@ const Home: FC = () => {
 
   return (
     <div>
-      <Navbar />
       <h1>Next.js TS</h1>
       {productList.map(product => (
         <div key={product.id}>{product.name}</div>
