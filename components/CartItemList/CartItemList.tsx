@@ -1,0 +1,79 @@
+import React from 'react'
+
+import Link from 'next/link'
+import { Item, Button, Loader, Message, ItemProps } from 'semantic-ui-react'
+
+import { CartItemType } from '@store/Cart'
+
+type CartItemListProps = {
+  items: CartItemType[]
+  removeFromCart: (product: TProduct) => void
+  loading?: boolean
+}
+
+/**
+ * @param props CartItemListProps
+ * @param props.items CartItemType[]
+ * @param props.removeFromCart (product: TProduct) => void
+ * @param props.loading boolean
+ * @returns ReactElement
+ */
+const CartItemList: React.FC<CartItemListProps> = ({
+  items,
+  removeFromCart,
+  loading = false,
+}) => {
+  if (loading) return <Loader active inline="centered" />
+
+  if (items.length === 0)
+    return (
+      <Message warning as="section">
+        <Message.Header>Your cart is empty</Message.Header>
+        <p>
+          You will need to add some items to the cart before you can checkout.
+        </p>
+      </Message>
+    )
+
+  /**
+   * @param items CartItemType[]
+   * @returns ItemProps[]
+   */
+  const mapCartItemsToItems = (items: CartItemType[]): ItemProps[] =>
+    items.map(cartItem => {
+      const { id, name, quantity, price, image } = cartItem
+
+      return {
+        childKey: id,
+        header: (
+          <Item.Header>
+            <Link href={`/product/${id}/`}>
+              <a>{name}</a>
+            </Link>
+          </Item.Header>
+        ),
+        image: (
+          <Item.Image
+            src={image}
+            alt={name}
+            size="small"
+            style={{ background: '#f2f2f2' }}
+          />
+        ),
+        meta: `${quantity} x ${price}`,
+        description: 'Some more information goes here....',
+        extra: (
+          <Button
+            basic
+            icon="remove"
+            floated="right"
+            onClick={(): void => removeFromCart(cartItem)}
+          />
+        ),
+      }
+    })
+
+  return <Item.Group divided items={mapCartItemsToItems(items)} as="section" />
+}
+
+export default CartItemList

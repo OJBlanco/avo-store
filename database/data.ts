@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 const data: Record<TProductId, TProduct> = {
   '2zd33b8c': {
     name: 'Maluma Hass Avocado',

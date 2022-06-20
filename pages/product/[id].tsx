@@ -1,34 +1,58 @@
-import React, { useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/naming-convention */
+import React from 'react'
 
-import { useRouter } from 'next/router'
+import fetch from 'isomorphic-unfetch'
+import { GetStaticPaths, GetStaticProps } from 'next'
+
+import Layout from '@components/Layout/Layout'
+import ProductSummary from '@components/ProductSummary/ProductSummary'
 
 /**
- * @returns ReactElement
+ * @returns unknows
  */
-const ProductItem = (): React.ReactElement => {
-  const [product, setProduct] = useState<TProduct>()
+export const getStaticPaths: GetStaticPaths = async () => {
+  const response = await fetch('http://localhost:3000/api/avo')
+  const { data }: TAPIAvoResponse = await response.json()
 
-  const { query } = useRouter()
+  const paths = data.map(({ id }) => ({ params: { id } }))
 
-  useEffect(() => {
-    getProduct()
-  }, [])
-
-  /**
-   *
-   */
-  const getProduct = async (): Promise<void> => {
-    try {
-      const request = await window.fetch(`/api/avo/${query.id}`)
-      if (request.status === 200) {
-        const { data } = await request.json()
-        setProduct(data)
-      }
-    } catch (error) {
-      console.error('>>> Error', error)
-    }
+  return {
+    // Statically generate all paths
+    paths,
+    // Display 404 for everything else
+    fallback: false,
   }
-  return <div>Esta es la apgina del producto: {product?.name}</div>
 }
 
-export default ProductItem
+// This also gets called at build time
+/**
+ * @param props Props
+ * @param props.params any
+ * @returns unknown
+ */
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // params contains the post `id`.
+  // If the route is like /posts/1, then params.id is 1
+  const response = await fetch(`http://localhost:3000/api/avo/${params?.id}`)
+  const product = await response.json()
+
+  // Pass post data to the page via props
+  return { props: { product } }
+}
+
+/**
+ * @param props Props
+ * @param props.product TProduct
+ * @returns ReactElement
+ */
+const ProductPage: React.FC<{
+  product: TProduct
+}> = ({ product }) => {
+  return (
+    <Layout>
+      {product === null ? null : <ProductSummary product={product} />}
+    </Layout>
+  )
+}
+
+export default ProductPage
