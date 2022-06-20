@@ -21,7 +21,7 @@ interface defaultProps {
  * @returns string
  */
 const fetchResult = async (): Promise<string> => {
-  const res = await fetch('http://localhost:3000/api/yes-or-no')
+  const res = await fetch('https://platzi-avo.vercel.app/api/yes-or-no')
   const { data }: YesOrNoApiResponse = await res.json()
 
   return data

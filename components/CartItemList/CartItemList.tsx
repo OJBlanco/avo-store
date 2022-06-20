@@ -1,7 +1,14 @@
 import React from 'react'
 
 import Link from 'next/link'
-import { Item, Button, Loader, Message, ItemProps } from 'semantic-ui-react'
+import {
+  Item,
+  Button,
+  Loader,
+  Message,
+  ItemProps,
+  SemanticShorthandItem,
+} from 'semantic-ui-react'
 
 import { CartItemType } from '@store/Cart'
 
@@ -39,7 +46,9 @@ const CartItemList: React.FC<CartItemListProps> = ({
    * @param items CartItemType[]
    * @returns ItemProps[]
    */
-  const mapCartItemsToItems = (items: CartItemType[]): ItemProps[] =>
+  const mapCartItemsToItems = (
+    items: CartItemType[]
+  ): SemanticShorthandItem<ItemProps>[] =>
     items.map(cartItem => {
       const { id, name, quantity, price, image } = cartItem
 
