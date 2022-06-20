@@ -4,8 +4,13 @@
 import { ReactElement } from 'react'
 
 import { AppProps } from 'next/app'
+import { ThemeProvider } from 'styled-components'
 
-import Layout from '@components/Layout/Layout'
+import CartProvider from '@store/Cart'
+import GlobalStyle from '@styles/global'
+import Theme from '@styles/theme'
+
+import 'semantic-ui-css/semantic.min.css'
 
 /**
  * @param props Props
@@ -15,22 +20,13 @@ import Layout from '@components/Layout/Layout'
  */
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <ThemeProvider theme={Theme}>
+      <CartProvider>
+        <Component {...pageProps} />
+      </CartProvider>
+      <GlobalStyle />
+    </ThemeProvider>
   )
 }
-
-// Only uncomment this method if you have blocking data requirements for
-// every single page in your application. This disables the ability to
-// perform automatic static optimization, causing every page in your app to
-// be server-side rendered.
-//
-// MyApp.getInitialProps = async (appContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const appProps = await App.getInitialProps(appContext);
-//
-//   return { ...appProps }
-// }
 
 export default MyApp
